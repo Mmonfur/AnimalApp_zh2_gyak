@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AnimalApp.MainPage"
+             Title="Állat Lista">
+
+    <Grid Padding="10" RowDefinitions="Auto, Auto" ColumnDefinitions="*, *">
+        <!-- Adatbeviteli mezők -->
+        <StackLayout Grid.Row="0" Grid.ColumnSpan="1" Spacing="5">
+            <!-- A Spacing itt függőleges eltartás -->
+            <Entry Placeholder="Állat neve" Text="{Binding NewAnimalName}" />
+            <Entry Placeholder="Faj" Text="{Binding NewAnimalSpecies}" />
+            <Entry Placeholder="Kor" Text="{Binding NewAnimalAge}" Keyboard="Numeric" />
+            <Button Text="Hozzáad" Command="{Binding AddAnimalCommand}" FontSize="14" HeightRequest="30"/>
+        </StackLayout>
+
+        <!-- Lista -->
+        <!-- CollectionView: Egy lista vagy gyűjtemény megjelenítésére szolgál -->
+        <!-- ItemSource: kollekció, amit adatkötünk -->
+        <CollectionView Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Animals}" Margin="20, 0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal" Spacing="10" Padding="5">
+                        <Label Text="{Binding Name}" FontSize="16" />
+                        <Label Text="{Binding Species}" FontSize="16" />
+                        <Label Text="{Binding Age}" FontSize="16" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- A-s állatok számlálása -->
+        <StackLayout Orientation ="Horizontal" Grid.Row="1" Grid.ColumnSpan="1" HorizontalOptions="End" Spacing="10" Margin="0, 50" >
+            <!-- Command: A nézetmodellben található parancshoz kötött, amely kiszámítja az A betűvel kezdődő állatok számát. -->
+            <Button Text="Hány A-betűs?" Command="{Binding CountAnimalsStartingWithACommand}" FontSize="14" HeightRequest="30" BackgroundColor="DarkRed"/>
+            <Label Text="{Binding ACountResult}" FontSize="14" VerticalTextAlignment="Center" HeightRequest="50"/>
+        </StackLayout>
+    </Grid>
+
+</ContentPage>
